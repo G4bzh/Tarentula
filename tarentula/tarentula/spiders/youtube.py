@@ -3,19 +3,15 @@
 import scrapy
 from tarentula.items import TarentulaItem
 
-# Global var to count number of followed links
-nextit = 0
-
 class YoutubeSpider(scrapy.Spider):
     name = "youtube"
     # URL to scrap
     start_urls = [
         'https://www.youtube.com/results?sp=CAJQFA%253D%253D&search_query=funny+cats',
     ]
+    iter = 0
 
     def parse(self, response):
-        # Usong the global var
-        global nextit
         # Get the all the div 'yt-lockup-content' 
         contents = response.css("div.yt-lockup-content")
         # For each, get attributes 'href' and 'title' of the 'a' element in 'h3' element
@@ -33,7 +29,7 @@ class YoutubeSpider(scrapy.Spider):
         # Get the last 'a' element in previous div and extract attribute 'href' of the other 'a' element within
         nextlink = nextbox.css('a')[-1].css('a::attr(href)').extract_first()
         # If link is present ans if we do nat have iterated enough, follow the link with parsing
-        if (nextlink is not None) and (nextit < 3) :
-            nextit += 1
+        if (nextlink is not None) and (self.iter < 3) :
+            self.iter += 1
             yield response.follow(nextlink, callback=self.parse)
 
