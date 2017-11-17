@@ -1,6 +1,7 @@
 # scrapy runspider myspider.py -o cats.json
 
 import scrapy
+from tarentula.items import TarentulaItem
 
 # Global var to count number of followed links
 nextit = 0
@@ -18,10 +19,14 @@ class YoutubeSpider(scrapy.Spider):
         # Get the all the div 'yt-lockup-content' 
         contents = response.css("div.yt-lockup-content")
         # For each, get attributes 'href' and 'title' of the 'a' element in 'h3' element
+        # and put it into an item
         for content in contents:
-            url = content.css("h3 a::attr(href)").extract_first()
-            title = content.css("h3 a::attr(title)").extract_first()
-            yield { 'url' : 'https://www.youtube.com'+url, 'title' : title }
+            item = TarentulaItem()
+            item['url'] = content.css("h3 a::attr(href)").extract_first()
+            item['title'] = content.css("h3 a::attr(title)").extract_first()
+            # Avoid ad links
+            if item['url'][:6] == '/watch' :
+                yield item
 
         # Get the first div 'branded-page-box.search-pager.spf-link' (next links) 
         nextbox = response.css("div.branded-page-box.search-pager.spf-link")[0]

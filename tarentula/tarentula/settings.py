@@ -31,6 +31,9 @@ ROBOTSTXT_OBEY = False
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
+DOWNLOAD_DELAY = .25
+RANDOMIZE_DOWNLOAD_DELAY = True
+
 
 # Disable cookies (enabled by default)
 #COOKIES_ENABLED = False
@@ -64,9 +67,9 @@ ROBOTSTXT_OBEY = False
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'tarentula.pipelines.TarentulaPipeline': 300,
-#}
+ITEM_PIPELINES = {
+    'tarentula.pipelines.FilePipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -88,3 +91,5 @@ ROBOTSTXT_OBEY = False
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+OUTPUT_FILE = 'output.txt'
