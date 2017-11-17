@@ -1,2 +1,2 @@
 # Tarentula
-Web spider
+Web spider using Scrapy
