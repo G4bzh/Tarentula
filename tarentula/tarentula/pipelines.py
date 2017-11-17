@@ -9,6 +9,7 @@
 # class TarentulaPipeline(object):
     # def process_item(self, item, spider):
         # return item
+
 import json
 
 class FilePipeline(object):
