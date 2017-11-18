@@ -13,4 +13,5 @@ class TarentulaItem(scrapy.Item):
     # name = scrapy.Field()
     url = scrapy.Field()
     title = scrapy.Field()
+    thumb = scrapy.Field()
     pass
