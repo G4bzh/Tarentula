@@ -3,6 +3,8 @@
 import scrapy
 from scrapy.http.request import Request
 from tarentula.items import TarentulaItem
+from tarentula.paraphrase.paraphrase import paraphrase
+
 
 class YoutubeSpider(scrapy.Spider):
     name = "youtube"
@@ -26,6 +28,7 @@ class YoutubeSpider(scrapy.Spider):
             item = TarentulaItem()
             item['url'] = content.css("h3 a::attr(href)").extract_first()
             item['title'] = content.css("h3 a::attr(title)").extract_first()
+            item['retitle'] = paraphrase(item['title'])
             # Avoid ad links
             if item['url'][:6] == '/watch' :
                 item['url'] = 'https://www.youtube.com' + item['url']
