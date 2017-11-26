@@ -12,11 +12,12 @@ class YoutubeSpider(scrapy.Spider):
     start_urls = [
         'https://www.youtube.com/results?sp=CAJQFA%253D%253D&search_query=funny+cats',
     ]
-    iter = 0
+    iter = 40
+    keywords = ['CAT', 'CATS']
     custom_settings = {
         'ITEM_PIPELINES': {
             'tarentula.pipelines.FilePipeline': 300,
-        }
+        },
     }
 
     def parse(self, response):
@@ -28,7 +29,7 @@ class YoutubeSpider(scrapy.Spider):
             item = TarentulaItem()
             item['url'] = content.css("h3 a::attr(href)").extract_first()
             item['title'] = content.css("h3 a::attr(title)").extract_first()
-            item['retitle'] = paraphrase(item['title'])
+            item['retitle'] = paraphrase(item['title'], self.keywords)
             # Avoid ad links
             if item['url'][:6] == '/watch' :
                 item['url'] = 'https://www.youtube.com' + item['url']

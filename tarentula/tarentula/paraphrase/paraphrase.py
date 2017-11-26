@@ -21,15 +21,16 @@ def synonyms(word, tag):
     lemmas = [lemma.name() for lemma in sum(lemma_lists, [])]
     return set(lemmas)
 
-def synonymIfExists(sentence):
+def synonymIfExists(sentence, kw):
  for (word, t) in tag(sentence):
-   if paraphraseable(t):
-    syns = synonyms(word, t)
-    if syns:
-     if len(syns) > 1:
-      yield syns.pop()
-      continue
-   yield word
+  if word.upper() not in kw:
+    if paraphraseable(t):
+      syns = synonyms(word, t)
+      if syns:
+        if len(syns) > 1:
+          yield syns.pop()
+          continue
+  yield word
 
-def paraphrase(sentence):
- return " ".join([x for x in synonymIfExists(sentence)])
+def paraphrase(sentence, kw):
+ return " ".join([x for x in synonymIfExists(sentence, kw)])
