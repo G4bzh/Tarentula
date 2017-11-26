@@ -8,5 +8,5 @@ tplVars = {
     'To' : 'titi@titi.com'
 }
 
-template = tplEnv.get_template( "body" )
+template = tplEnv.get_template( "body_extends" )
 print template.render(tplVars)
