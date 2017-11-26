@@ -16,7 +16,7 @@ class YoutubeSpider(scrapy.Spider):
     keywords = ['CAT', 'CATS']
     custom_settings = {
         'ITEM_PIPELINES': {
-            'tarentula.pipelines.FilePipeline': 300,
+            'tarentula.pipelines.SqlitePipeline': 300,
         },
     }
 

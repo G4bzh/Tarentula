@@ -93,3 +93,4 @@ RANDOMIZE_DOWNLOAD_DELAY = True
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 OUTPUT_FILE = 'output.txt'
+DB_PATH = 'output.db'
