@@ -78,5 +78,6 @@ class SqlitePipeline(object):
             # Key already exists (id est URL already scrapped), do nothing
             pass
         self.conn.commit()
+        cursor.close()
         return item
 
