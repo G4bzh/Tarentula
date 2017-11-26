@@ -2,3 +2,5 @@ From: {{From}}
 To: {{To}}
 {% block content %}
 {% endblock %}
+.
+^Z
