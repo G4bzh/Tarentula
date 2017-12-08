@@ -5,7 +5,8 @@ tplEnv = jinja2.Environment(loader=tplLoader)
 
 tplVars = {
     'From': 'toto@toto.com',
-    'To' : 'titi@titi.com'
+    'To' : 'titi@titi.com',
+    'Contents' : ['one','two','three']
 }
 
 template = tplEnv.get_template( "body_extends" )
