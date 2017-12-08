@@ -1,7 +1,0 @@
-{% for p in parts %}
-Part {{ p }}
-{% for l in range( lines | random ) %}
-{%- block content %}
-{%- endblock %}
-{%- endfor %}
-{% endfor %}

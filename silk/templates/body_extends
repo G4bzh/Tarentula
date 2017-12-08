@@ -1,4 +1,0 @@
-{%- extends 'body' %}
-{%- block content %}
-{{ transitions | random() }} {{ verbs | random() }} {{ pronouns | random() }} {{ adjectives | random() }} {{ keywords | random() }}    
-{%- endblock %}
