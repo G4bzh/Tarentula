@@ -11,6 +11,7 @@ import getpass
 import ConfigParser
 import sqlite3
 import sys
+import urllib
 
 reload(sys)  
 sys.setdefaultencoding('utf8')
@@ -55,6 +56,8 @@ msg['Subject'] = metadata[3] + '¤' + metadata[1]
 msg.attach(MIMEText(body))
 
 f = 'test.jpg'
+urllib.urlretrieve( metadata[4], f)
+
 part = MIMEBase('application', "octet-stream")
 part.set_payload( open(f,"rb").read() )
 encoders.encode_base64(part)
