@@ -24,11 +24,12 @@ config.read('./mysettings.ini')
 server = config.get('MAIL','server')
 user   = config.get('MAIL','username')
 password = config.get('MAIL','password')
+recipient = config.get('MAIL','recipient')
 
 # Create the message
 msg = MIMEText(body)
 msg.set_unixfrom(user)
-msg['To'] = email.utils.formataddr(('Recipient', 'gb.viel@gmail.com'))
+msg['To'] = email.utils.formataddr(('Recipient', recipient))
 msg['From'] = email.utils.formataddr(('Post', user))
 msg['Subject'] = 'Hello Cat'
 
@@ -45,6 +46,6 @@ try:
         server.ehlo() # re-identify ourselves over TLS connection
 
     server.login(user, password)
-    server.sendmail(user, 'gb.viel@gmail.com', msg.as_string())
+    server.sendmail(user, recipient, msg.as_string())
 finally:
     server.quit()
