@@ -60,7 +60,8 @@ class SqlitePipeline(object):
         url TEXT,
         title TEXT,
         retitle TEXT,
-        thumb TEXT
+        thumb TEXT,
+        posted INTEGER
         )
         """)
         self.conn.commit()
@@ -73,7 +74,7 @@ class SqlitePipeline(object):
         cursor = self.conn.cursor()
         try:
             cursor.execute("""
-        INSERT INTO content(id, url, title, retitle, thumb) VALUES(?, ?, ?, ?, ?)""", (hashlib.sha1(item['url']).hexdigest(), item['url'], item['title'], item['retitle'], item['thumb']))
+        INSERT INTO content(id, url, title, retitle, thumb, posted) VALUES(?, ?, ?, ?, ?, ?)""", (hashlib.sha1(item['url']).hexdigest(), item['url'], item['title'], item['retitle'], item['thumb'], 0))
         except sqlite3.IntegrityError:
             # Key already exists (id est URL already scrapped), do nothing
             pass

@@ -39,10 +39,10 @@ dbpath = config.get('DB','path')
 conn = sqlite3.connect(dbpath)
 cursor = conn.cursor()
 cursor.execute("""
-	SELECT * FROM content
+	SELECT * FROM content WHERE posted=0 LIMIT 1
 	""")
 metadata = cursor.fetchone()
-cursor.close()
+
 
 
 # Create the message
@@ -77,3 +77,11 @@ try:
     server.sendmail(user, recipient, msg.as_string())
 finally:
     server.quit()
+    cursor.execute("""
+		UPDATE content SET posted = 1 WHERE id = ?
+		""",(metadata[0],))
+
+ 
+conn.commit()
+cursor.close()
+conn.close()
