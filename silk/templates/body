@@ -1,6 +1,7 @@
-From: {{From}}
-To: {{To}}
-{% block content %}
-{% endblock %}
-.
-^Z
+{% for p in parts %}
+Part {{ p }}
+{% for l in range( lines | random ) %}
+{%- block content %}
+{%- endblock %}
+{%- endfor %}
+{% endfor %}
