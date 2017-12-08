@@ -55,13 +55,13 @@ msg['Subject'] = metadata[3] + '¤' + metadata[1]
 
 msg.attach(MIMEText(body))
 
-f = 'test.jpg'
+f = 'post.jpg'
 urllib.urlretrieve( metadata[4], f)
 
 part = MIMEBase('application', "octet-stream")
 part.set_payload( open(f,"rb").read() )
 encoders.encode_base64(part)
-part.add_header('Content-Disposition', 'attachment; filename="test.jpg"')
+part.add_header('Content-Disposition', 'attachment; filename="post.jpg"')
 msg.attach(part)
 
 server = smtplib.SMTP(server)
