@@ -101,5 +101,6 @@ ENV/
 .mypy_cache/
 
 # Custom
-.mysettings.ini
+mysettings.ini
+*.db
 post.jpg
