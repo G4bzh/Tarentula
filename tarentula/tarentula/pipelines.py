@@ -65,6 +65,11 @@ class SqlitePipeline(object):
         )
         """)
         self.conn.commit()
+        cursor.execute("""
+        CREATE INDEX IF NOT EXISTS idx_posted
+        ON content(posted)
+        """)
+        self.conn.commit()
         cursor.close()
 
     def close_spider(self, spider):
