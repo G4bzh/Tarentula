@@ -37,6 +37,7 @@ class FilePipeline(object):
 
 
 import sqlite3
+from contextlib import closing
 import hashlib
 
 class SqlitePipeline(object):
@@ -52,25 +53,34 @@ class SqlitePipeline(object):
         )
 
     def open_spider(self, spider):
-        self.conn = sqlite3.connect(self.dbpath)
-        cursor = self.conn.cursor()
-        cursor.execute("""
-        CREATE TABLE IF NOT EXISTS content(
-        id TEXT PRIMARY KEY UNIQUE,
-        url TEXT,
-        title TEXT,
-        retitle TEXT,
-        thumb TEXT,
-        posted INTEGER
-        )
-        """)
-        self.conn.commit()
-        cursor.execute("""
-        CREATE INDEX IF NOT EXISTS idx_posted
-        ON content(posted)
-        """)
-        self.conn.commit()
-        cursor.close()
+        try:
+
+            self.conn = sqlite3.connect(self.dbpath)
+            cursor = self.conn.cursor()
+            
+            cursor.execute("""
+            CREATE TABLE IF NOT EXISTS content(
+            id TEXT PRIMARY KEY UNIQUE,
+            url TEXT,
+            title TEXT,
+            retitle TEXT,
+            thumb TEXT,
+            posted INTEGER
+            )
+            """)
+            self.conn.commit()
+
+            cursor.execute("""
+            CREATE INDEX IF NOT EXISTS idx_posted
+            ON content(posted)
+            """)
+            self.conn.commit()
+
+        except sqlite3.Error,e:
+            raise Exception( "Error in pipeline open_spider: %s" % e)
+
+        finally:
+            cursor.close()            
 
     def close_spider(self, spider):
         self.conn.close()
@@ -80,10 +90,13 @@ class SqlitePipeline(object):
         try:
             cursor.execute("""
         INSERT INTO content(id, url, title, retitle, thumb, posted) VALUES(?, ?, ?, ?, ?, ?)""", (hashlib.sha1(item['url']).hexdigest(), item['url'], item['title'], item['retitle'], item['thumb'], 0))
+        
         except sqlite3.IntegrityError:
             # Key already exists (id est URL already scrapped), do nothing
             pass
-        self.conn.commit()
-        cursor.close()
-        return item
+        
+        finally:
+            self.conn.commit()
+            cursor.close()
+            return item
 

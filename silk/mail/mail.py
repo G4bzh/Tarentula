@@ -26,20 +26,24 @@ def sendpost(to, user, subject, body, url, server, password, debug):
 	part.add_header('Content-Disposition', 'attachment; filename="' + f + '"')
 	msg.attach(part)
 
+	srv = smtplib.SMTP(server)
 
-	server = smtplib.SMTP(server)
 	try:
-	    server.set_debuglevel(debug)
+		srv.set_debuglevel(debug)
 
-	    # identify ourselves, prompting server for supported features
-	    server.ehlo()
+		# identify ourselves, prompting server for supported features
+		srv.ehlo()
 
-	    # If we can encrypt this session, do it
-	    if server.has_extn('STARTTLS'):
-	        server.starttls()
-	        server.ehlo() # re-identify ourselves over TLS connection
+		# If we can encrypt this session, do it
+		if srv.has_extn('STARTTLS'):
+		    srv.starttls()
+		    srv.ehlo() # re-identify ourselves over TLS connection
 
-	    server.login(user, password)
-	    server.sendmail(user, to, msg.as_string())
+		srv.login(user, password)
+		srv.sendmail(user, to, msg.as_string())	
+
+	except smtplib.SMTPException:
+		raise ValueError
+
 	finally:
-	    server.quit()
+		srv.quit()

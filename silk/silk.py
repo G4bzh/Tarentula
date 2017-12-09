@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*- 
 import jinja2
 from mail.mail import sendpost
+from contextlib import closing
 import ConfigParser
 import sqlite3
 import sys
@@ -32,22 +33,30 @@ debug = config.get('MAIL','debug')
 dbpath = config.get('DB','path')
 
 
-conn = sqlite3.connect(dbpath)
-cursor = conn.cursor()
-cursor.execute("""
-	SELECT * FROM content WHERE posted=0 LIMIT 1
-	""")
-metadata = cursor.fetchone()
+try:
+    with closing(sqlite3.connect(dbpath, timeout=1)) as conn:
+
+        cursor = conn.cursor()
+        cursor.execute("""
+        	SELECT * FROM content WHERE posted=0 LIMIT 1
+        	""")
+        metadata = cursor.fetchone()
 
 
-subject = metadata[3] + '¤' + metadata[1]
-sendpost(recipient, user, subject, body, metadata[4], server, password, debug)
+        subject = metadata[3] + '¤' + metadata[1]
+        sendpost(recipient, user, subject, body, metadata[4], server, password, debug)
 
-cursor.execute("""
-	UPDATE content SET posted = 1 WHERE id = ?
-	""",(metadata[0],))
+        cursor.execute("""
+        	UPDATE content SET posted = 1 WHERE id = ?
+        	""",(metadata[0],))
 
- 
-conn.commit()
-cursor.close()
-conn.close()
+     
+        conn.commit()
+        cursor.close()
+
+
+except ValueError:
+    raise Exception( "Failed to send post")
+
+except sqlite3.Error,e:
+    raise Exception( "Error in silk: %s" % e)
