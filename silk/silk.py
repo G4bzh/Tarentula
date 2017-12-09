@@ -1,17 +1,10 @@
 	
 # -*- coding: utf-8 -*- 
 import jinja2
-import smtplib
-import email.utils
-from email import encoders
-from email.mime.multipart import MIMEMultipart
-from email.mime.base import MIMEBase
-from email.mime.text import MIMEText
-import getpass
+from mail.mail import sendpost
 import ConfigParser
 import sqlite3
 import sys
-import urllib
 
 reload(sys)  
 sys.setdefaultencoding('utf8')
@@ -35,7 +28,9 @@ server = config.get('MAIL','server')
 user   = config.get('MAIL','username')
 password = config.get('MAIL','password')
 recipient = config.get('MAIL','recipient')
+debug = config.get('MAIL','debug')
 dbpath = config.get('DB','path')
+
 
 conn = sqlite3.connect(dbpath)
 cursor = conn.cursor()
@@ -45,44 +40,12 @@ cursor.execute("""
 metadata = cursor.fetchone()
 
 
+subject = metadata[3] + '¤' + metadata[1]
+sendpost(recipient, user, subject, body, metadata[4], server, password, debug)
 
-# Create the message
-msg = MIMEMultipart()
-msg.set_unixfrom(user)
-msg['To'] = email.utils.formataddr(('Recipient', recipient))
-msg['From'] = email.utils.formataddr(('Post', user))
-msg['Subject'] = metadata[3] + '¤' + metadata[1]
-
-msg.attach(MIMEText(body))
-
-f = 'post.jpg'
-urllib.urlretrieve( metadata[4], f)
-
-part = MIMEBase('application', "octet-stream")
-part.set_payload( open(f,"rb").read() )
-encoders.encode_base64(part)
-part.add_header('Content-Disposition', 'attachment; filename="post.jpg"')
-msg.attach(part)
-
-server = smtplib.SMTP(server)
-try:
-    server.set_debuglevel(True)
-
-    # identify ourselves, prompting server for supported features
-    server.ehlo()
-
-    # If we can encrypt this session, do it
-    if server.has_extn('STARTTLS'):
-        server.starttls()
-        server.ehlo() # re-identify ourselves over TLS connection
-
-    server.login(user, password)
-    server.sendmail(user, recipient, msg.as_string())
-finally:
-    server.quit()
-    cursor.execute("""
-		UPDATE content SET posted = 1 WHERE id = ?
-		""",(metadata[0],))
+cursor.execute("""
+	UPDATE content SET posted = 1 WHERE id = ?
+	""",(metadata[0],))
 
  
 conn.commit()
