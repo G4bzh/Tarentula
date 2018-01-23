@@ -94,3 +94,4 @@ RANDOMIZE_DOWNLOAD_DELAY = True
 
 OUTPUT_FILE = 'output.txt'
 DB_PATH = 'output.db'
+DB_TITLES_PATH = 'output-titles.db'

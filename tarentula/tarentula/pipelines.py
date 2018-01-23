@@ -63,7 +63,6 @@ class SqlitePipeline(object):
             id TEXT PRIMARY KEY UNIQUE,
             url TEXT,
             title TEXT,
-            retitle TEXT,
             thumb TEXT,
             posted INTEGER
             )
@@ -89,7 +88,7 @@ class SqlitePipeline(object):
         cursor = self.conn.cursor()
         try:
             cursor.execute("""
-        INSERT INTO content(id, url, title, retitle, thumb, posted) VALUES(?, ?, ?, ?, ?, ?)""", (hashlib.sha1(item['url']).hexdigest(), item['url'], item['title'], item['retitle'], item['thumb'], 0))
+        INSERT INTO content(id, url, title, thumb, posted) VALUES(?, ?, ?, ?, ?)""", (hashlib.sha1(item['url']).hexdigest(), item['url'], item['title'], item['thumb'], 0))
         
         except sqlite3.IntegrityError:
             # Key already exists (id est URL already scrapped), do nothing
@@ -111,7 +110,7 @@ class SqliteTitlesPipeline(object):
     def from_crawler(cls, crawler):
         ## pull in information from settings.py
         return cls(
-            dbpath=crawler.settings.get('DB_PATH'),
+            dbpath=crawler.settings.get('DB_TITLES_PATH'),
         )
 
     def open_spider(self, spider):
