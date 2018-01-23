@@ -43,8 +43,8 @@ try:
         metadata = cursor.fetchone()
 
 
-        subject = metadata[3] + '¤' + metadata[1]
-        sendpost(recipient, user, subject, body, metadata[4], server, password, debug)
+        subject = metadata[2] + '¤' + metadata[1]
+        sendpost(recipient, user, subject, body, metadata[3], server, password, debug)
 
         cursor.execute("""
         	UPDATE content SET posted = 1 WHERE id = ?
