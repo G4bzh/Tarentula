@@ -29,11 +29,16 @@ class YoutubeSpider(scrapy.Spider):
             item['url'] = content.css("h3 a::attr(href)").extract_first()
             item['title'] = content.css("h3 a::attr(title)").extract_first()
             item['retitle'] = item['title']
-            # Avoid ad links
-            if item['url'][:6] == '/watch' :
-                item['url'] = 'https://www.youtube.com' + item['url']
-                # Scrap Google image for a thumbnail
-                yield Request('https://www.google.fr/search?tbm=isch&q="' + item['title'] + '"'  , callback=self.parseThumbnail,meta={'item': item})
+            try:
+                item['title'].encode('ascii')
+            except UnicodeEncodeError:
+                continue
+            else:
+                # Avoid ad links
+                if item['url'][:6] == '/watch' :
+                    item['url'] = 'https://www.youtube.com' + item['url']
+                    # Scrap Google image for a thumbnail
+                    yield Request('https://www.google.fr/search?tbm=isch&q="' + item['title'] + '"'  , callback=self.parseThumbnail,meta={'item': item})
 
         # Get the first div 'branded-page-box.search-pager.spf-link' (next links) 
         nextbox = response.css("div.branded-page-box.search-pager.spf-link")[0]
