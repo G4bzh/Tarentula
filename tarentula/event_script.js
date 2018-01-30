@@ -5,10 +5,19 @@
 var ruleHosts = {
 	
 	"conditions" : [
-		// Match youtube
+
+		// Match Youtube
 		new chrome.declarativeContent.PageStateMatcher({
 			"pageUrl" : {
 				"hostEquals" : "www.youtube.com",
+				"schemes" : ["http", "https"]
+			}
+		}),
+
+		// Match Dailymotion
+		new chrome.declarativeContent.PageStateMatcher({
+			"pageUrl" : {
+				"hostEquals" : "www.dailymotion.com",
 				"schemes" : ["http", "https"]
 			}
 		})
