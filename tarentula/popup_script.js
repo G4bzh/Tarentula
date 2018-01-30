@@ -1,9 +1,18 @@
-// Variables
+////////////////
+// Variables //
+//////////////
+
 var queryInfo = {"active" : true};
 var textURLID = "url";
 
 
-// print Tab Url
+
+////////////////
+// Functions //
+//////////////
+
+
+// print Tab Url into textURL element
 function printURL(textURL)
 {
 	chrome.tabs.query( queryInfo, function(tabs) {
@@ -12,7 +21,12 @@ function printURL(textURL)
 	);
 }
 
-// Listener
+
+////////////////////////
+// Listeners (Logic) //
+//////////////////////
+
+// Page loaded listener
 document.addEventListener('DOMContentLoaded', function(dcle) {
 
 		textURL = document.getElementById(textURLID);
