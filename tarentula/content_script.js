@@ -3,25 +3,26 @@
 // found in the LICENSE file.
 
 var additionalInfo = {
-  "title": document.title,
-  "selection": window.getSelection().toString()
+	"url" : location.href,
+	"title": document.title,
+	"body": document.characterSet
 };
 
 
 // Inform event_script we need pageaction
 chrome.runtime.sendMessage({
-  from:    'content',
-  subject: 'showPageAction'
+   from:    'content',
+   subject: 'showPageAction'
 });
 
 
 // Listen for message from popup
 chrome.runtime.onMessage.addListener(function (msg, sender, response) {
-	if ((msg.from === 'popup') && (msg.subject === 'DOMInfo')) {
-	    // Directly respond to the sender (popup), 
-	    // through the specified callback */
-	    console.log("Get Message and respond");
-	    response(additionalInfo);
-	}
-  }
+ 	 
+ 	 if ((msg.from === 'popup') && (msg.subject === 'DOMInfo')) {
+	     // Directly respond to the sender (popup), 
+	     // through the specified callback */
+ 	     response(additionalInfo);
+ 	}
+
 });
