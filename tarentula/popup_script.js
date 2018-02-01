@@ -7,7 +7,7 @@ var textURLID = "url";
 var textTitleID = "title";
 var canvThumbID = "thumb";
 var buttonShotID = "shot";
-
+var buttonSendID = "send";
 
 ////////////////
 // Functions //
@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function(dcle) {
 
 
 	shotButton = document.getElementById(buttonShotID);
+	sendButton = document.getElementById(buttonSendID);
 
 	// Request info from content script
 	chrome.tabs.query( queryInfo, function(tabs) {
@@ -45,8 +46,8 @@ document.addEventListener('DOMContentLoaded', function(dcle) {
 	
 	});
 
-	// Add a listener to the button
-	shotButton.addEventListener('click', function(ce){
+	// Add a listener to the 'Shot !' button
+	shotButton.addEventListener('click', function(ce) {
 
 		// Need  <all_urls> permission here
 		chrome.tabs.captureVisibleTab(null, {}, function (dataURL) {
@@ -63,6 +64,22 @@ document.addEventListener('DOMContentLoaded', function(dcle) {
 			img.src = dataURL;
 	
     	});
+
+	});
+
+
+	// Add a listener to the 'Send' button
+	sendButton.addEventListener('click', function(ce) {
+
+			// Need  <all_urls> permission here
+			var x = new XMLHttpRequest();
+			x.open('GET', 'https://postman-echo.com/get?title=' + document.getElementById(textTitleID).value);
+
+			x.onload = function() {
+        		alert(x.responseText);
+    		};
+
+    		x.send();
 
 	});
 
