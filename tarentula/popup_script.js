@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function(dcle) {
 	// Add a listener to the button
 	shotButton.addEventListener('click', function(ce){
 
+		// Need  <all_urls> permission here
 		chrome.tabs.captureVisibleTab(null, {}, function (dataURL) {
     		
     		var img = new Image();
@@ -56,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function(dcle) {
 
 				var canv=document.getElementById(canvThumbID);
     			var ctx=canv.getContext('2d');
-				ctx.drawImage(img,0,0);
+				ctx.drawImage(img,400,100,750,450,0,0,750,450);
 			};
 
 			img.src = dataURL;
