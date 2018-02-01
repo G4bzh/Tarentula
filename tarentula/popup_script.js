@@ -35,12 +35,11 @@ document.addEventListener('DOMContentLoaded', function(dcle) {
 		
 		chrome.tabs.sendMessage(
         	tabs[0].id,
-        	{from: 'popup', subject: 'DOMInfo'},
+        	{from: 'popup', subject: 'GetInfo'},
         	printInfo);
 	
 	
 	});
 
 });
-
 
