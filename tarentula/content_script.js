@@ -19,8 +19,7 @@ chrome.runtime.onMessage.addListener(function (msg, sender, response) {
 
 	    var additionalInfo = {
 			"url" : location.href,
-			"title": document.getElementsByTagName('h1')[0].innerHTML,
-			"body": document.characterSet
+			"title": document.getElementsByTagName('h1')[0].innerHTML
 		};
 
  	    response(additionalInfo);
