@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function(dcle) {
 
 			// Need  <all_urls> permission here
 			var x = new XMLHttpRequest();
-			x.open('GET', 'https://postman-echo.com/get?title=' + document.getElementById(textTitleID).value);
+			x.open('GET', 'http://localhost:5000/user/' + document.getElementById(textTitleID).value);
 
 			x.onload = function() {
         		alert(x.responseText);

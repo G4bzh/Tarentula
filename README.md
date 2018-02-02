@@ -1,5 +1,5 @@
 # Tarentula
-Web spider using Scrapy
+Kind of spider
 
 ## Prerequisites
 
@@ -7,10 +7,9 @@ Web spider using Scrapy
 
 ```
 apt-get update -y
-apt-get install python-dev python-lxml python-service-identity python-pip -y
-pip install scrapy
-pip install Twisted==16.4.1
+apt-get install python-dev python-pip -y
 pip install Jinja2
+pip install Flask
 
 pip install https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.4.0-cp27-none-linux_x86_64.whl
 or
