@@ -71,15 +71,22 @@ document.addEventListener('DOMContentLoaded', function(dcle) {
 	// Add a listener to the 'Send' button
 	sendButton.addEventListener('click', function(ce) {
 
+			var data = {
+				"url" : document.getElementById(textURLID).value,
+				"title": document.getElementById(textTitleID).value,
+				"img" : document.getElementById(canvThumbID).toDataURL()
+			};
+			
 			// Need  <all_urls> permission here
 			var x = new XMLHttpRequest();
-			x.open('GET', 'http://localhost:5000/user/' + document.getElementById(canvThumbID).toDataURL().split(',')[1]);
-
+			x.open('POST', 'http://localhost:5000/post');
+			x.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+			
 			x.onload = function() {
         		alert(x.responseText);
     		};
 
-    		x.send();
+    		x.send(JSON.stringify(data));
 
 	});
 

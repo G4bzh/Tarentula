@@ -1,15 +1,19 @@
+# FLASK_APP=server.py flask run --host 0.0.0.0
+
 from flask import Flask
+from flask import request
+import base64
+
 app = Flask(__name__)
 
-@app.route('/')
-def hello_world():
-    return 'Hello, World!'
-
-@app.route('/user/<username>')
-def show_user_profile(username):
-    return 'User %s' % username
-
-@app.route('/post/<int:post_id>')
-def show_post(post_id):
+@app.route('/post', methods=['POST'])
+def show_post():
     # show the post with the given id, the id is an integer
-    return 'Post %d' % post_id
+    data = request.get_json()
+
+    # remove "data:image/png;base64,"
+    img_data = data['img'][22:] 
+
+    with open("imageToSave.png", "wb") as f:
+    	f.write(img_data.decode('base64'))
+    return 'OK'
