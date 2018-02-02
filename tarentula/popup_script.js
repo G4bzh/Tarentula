@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function(dcle) {
 
 			// Need  <all_urls> permission here
 			var x = new XMLHttpRequest();
-			x.open('GET', 'http://localhost:5000/user/' + document.getElementById(textTitleID).value);
+			x.open('GET', 'http://localhost:5000/user/' + document.getElementById(canvThumbID).toDataURL().split(',')[1]);
 
 			x.onload = function() {
         		alert(x.responseText);
