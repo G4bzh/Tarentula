@@ -36,7 +36,7 @@ def db_create():
         conn.commit()
 
     except sqlite3.Error,e:
-        raise Exception( "Error in pipeline open_spider: %s" % e)
+        raise Exception( "Error creating DB: %s" % e)
 
     finally:
         cursor.close()

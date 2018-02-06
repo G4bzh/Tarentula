@@ -5,6 +5,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 import urllib
+import base64
 
 
 def sendpost(to, user, subject, body, url, server, password, debug):
@@ -18,7 +19,8 @@ def sendpost(to, user, subject, body, url, server, password, debug):
 	msg.attach(MIMEText(body))
 
 	f = 'post.jpg'
-	urllib.urlretrieve( url, f)
+	with open(f, "wb") as fh:
+         fh.write(url.decode('base64'))
 
 	part = MIMEBase('application', "octet-stream")
 	part.set_payload( open(f,"rb").read() )
