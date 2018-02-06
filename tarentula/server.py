@@ -10,6 +10,7 @@ import hashlib
 
 app = Flask(__name__)
 
+
 @app.before_first_request
 def db_create():
     try:
@@ -22,7 +23,7 @@ def db_create():
         id TEXT PRIMARY KEY UNIQUE,
         url TEXT,
         title TEXT,
-        thumb TEXT,
+        thumb BLOB,
         posted INTEGER
         )
         """)
@@ -51,9 +52,8 @@ def show_post():
     # remove "data:image/png;base64,"
     img_data = data['img'][22:] 
 
-    with open("imageToSave.png", "wb") as f:
-        f.write(img_data.decode('base64'))
-
+    # with open("imageToSave.png", "wb") as f:
+    #     f.write(img_data.decode('base64'))
 
     conn = sqlite3.connect("output.db")
     cursor = conn.cursor()
@@ -61,7 +61,8 @@ def show_post():
     try:
         
         cursor.execute("""
-        INSERT INTO content(id, url, title, thumb, posted) VALUES(?, ?, ?, ?, ?)""", (hashlib.sha1(data['url']).hexdigest(), data['url'], data['title'], "imageToSave.png", 0))
+        INSERT INTO content(id, url, title, thumb, posted) VALUES(?, ?, ?, ?, ?)
+        """, (hashlib.sha1(data['url']).hexdigest(), data['url'], data['title'], img_data, 0))
         
     except sqlite3.IntegrityError:
         # Key already exists (id est URL already scrapped), do nothing
