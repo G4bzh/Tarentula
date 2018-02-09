@@ -1,0 +1,30 @@
+<?php
+
+/* Add this to the theme file functions.php */
+
+function my_postie_post_function($post) {
+
+    /* Post title is et to TITLE¤VIDEO_URL */
+    $ar_title = explode("¤",$post['post_title']);
+
+    add_post_meta($post['ID'], 'dp_video_url', $ar_title[1]);
+    $post['post_title']=$ar_title[0];
+    $post['post_name']=$ar_title[0];
+
+    /* Postie ImageTemplate should be set to custom with content: ¤{FILELINK}¤ */
+    $ar_content = explode("¤",$post['post_content']);
+    add_post_meta($post['ID'], 'dp_video_poster', $ar_content[1]);
+    $post['post_content'] = $ar_content[0] . $ar_content[2];
+
+    /* Views and likes */
+    $views = rand(1,99)*1213;
+    add_post_meta($post['ID'], 'views', $views);
+    add_post_meta($post['ID'], 'likes', rand(123,$views/5));
+
+    return $post;
+}
+
+
+add_filter('postie_post_before', 'my_postie_post_function');
+
+?>
