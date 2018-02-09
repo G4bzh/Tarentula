@@ -9,6 +9,14 @@ var canvThumbID = "thumb";
 var buttonShotID = "shot";
 var buttonSendID = "send";
 
+		
+var img = new Image();
+var X = 0;
+var Y = 0;
+var dX = 0;
+var dY = 0;
+var drag = false;
+
 ////////////////
 // Functions //
 //////////////
@@ -23,7 +31,6 @@ function printInfo(info)
 
 
 
-
 ////////////////////////
 // Listeners (Logic) //
 //////////////////////
@@ -34,6 +41,9 @@ document.addEventListener('DOMContentLoaded', function(dcle) {
 
 	shotButton = document.getElementById(buttonShotID);
 	sendButton = document.getElementById(buttonSendID);
+	canv = document.getElementById(canvThumbID);
+	ctx=canv.getContext('2d');
+
 
 	// Request info from content script
 	chrome.tabs.query( queryInfo, function(tabs) {
@@ -51,19 +61,41 @@ document.addEventListener('DOMContentLoaded', function(dcle) {
 
 		// Need  <all_urls> permission here
 		chrome.tabs.captureVisibleTab(null, {}, function (dataURL) {
-    		
-    		var img = new Image();
-	
+    
 			img.onload = function() {
-
-				var canv=document.getElementById(canvThumbID);
-    			var ctx=canv.getContext('2d');
-				ctx.drawImage(img,400,100,750,450,0,0,750,450);
+				ctx.drawImage(img,X,Y);
 			};
 
+			dX = canv.width;
+			dY = canv.height;
 			img.src = dataURL;
 	
     	});
+
+	});
+
+
+	canv.addEventListener("mousedown", function(e){
+		drag=true;
+		dX =e.x;
+		dY=e.y;
+	});
+
+	canv.addEventListener("mouseup",  function(){
+		drag=false;
+	});
+
+	canv.addEventListener("mousemove", function(e) {
+
+		if (drag)
+		{
+			X -= dX - e.x;
+			Y -= dY - e.y;
+			dX = e.x;
+			dY = e.y;
+			
+			ctx.drawImage(img,X,Y);
+		}
 
 	});
 

@@ -52,8 +52,8 @@ def show_post():
     # remove "data:image/png;base64,"
     img_data = data['img'][22:] 
 
-    # with open("imageToSave.png", "wb") as f:
-    #     f.write(img_data.decode('base64'))
+    #with open("imageToSave.png", "wb") as f:
+    #    f.write(img_data.decode('base64'))
 
     conn = sqlite3.connect("output.db")
     cursor = conn.cursor()
