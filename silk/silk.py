@@ -13,15 +13,6 @@ sys.setdefaultencoding('utf8')
 tplLoader = jinja2.FileSystemLoader(searchpath='./templates')
 tplEnv = jinja2.Environment(loader=tplLoader)
 
-tplVars = {
-    'parts': range(1,11),
-    'lines' : range(5,8),
-   	'keywords' : ('cats', 'kitten', 'cat', 'pussy', 'kitty', 'puss'),
-}
-
-template = tplEnv.get_template( "body.jinja" )
-body = template.render(tplVars)
-
 
 config = ConfigParser.ConfigParser()
 config.read('./mysettings.ini')
@@ -44,6 +35,17 @@ try:
 
 
         subject = metadata[2] + '¤' + metadata[1]
+
+        tplVars = {
+            'parts': range(1,11),
+            'lines' : range(5,8),
+            'title' : metadata[2],
+            'keywords' : ('cats', 'kitten', 'cat', 'pussy', 'kitty', 'puss'),
+        }
+
+        template = tplEnv.get_template( "body.jinja" )
+        body = template.render(tplVars)
+
         sendpost(recipient, user, subject, body, metadata[3], server, password, debug)
 
         cursor.execute("""

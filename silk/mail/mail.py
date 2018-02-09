@@ -18,14 +18,11 @@ def sendpost(to, user, subject, body, url, server, password, debug):
 
 	msg.attach(MIMEText(body))
 
-	f = 'post.jpg'
-	with open(f, "wb") as fh:
-         fh.write(url.decode('base64'))
-
 	part = MIMEBase('application', "octet-stream")
-	part.set_payload( open(f,"rb").read() )
+	# Cannot set the base64 png directly because \r\n are needed in the payload
+	part.set_payload( url.decode('base64') )
 	encoders.encode_base64(part)
-	part.add_header('Content-Disposition', 'attachment; filename="' + f + '"')
+	part.add_header('Content-Disposition', 'attachment; filename="post.png"')
 	msg.attach(part)
 
 	srv = smtplib.SMTP(server)
