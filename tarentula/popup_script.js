@@ -8,6 +8,7 @@ var textTitleID = "title";
 var canvThumbID = "thumb";
 var buttonShotID = "shot";
 var buttonSendID = "send";
+var buttonSendTID = "sendT";
 
 		
 var img = new Image();
@@ -41,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function(dcle) {
 
 	shotButton = document.getElementById(buttonShotID);
 	sendButton = document.getElementById(buttonSendID);
+	sendTButton = document.getElementById(buttonSendTID);
 	canv = document.getElementById(canvThumbID);
 	ctx=canv.getContext('2d');
 
@@ -100,6 +102,26 @@ document.addEventListener('DOMContentLoaded', function(dcle) {
 	});
 
 
+	// Add a listener to the 'Send Title' button
+	sendTButton.addEventListener('click', function(ce) {
+
+			var data = {
+				"title": document.getElementById(textTitleID).value
+			};
+			
+			// Need  <all_urls> permission here
+			var x = new XMLHttpRequest();
+			x.open('POST', 'http://localhost:5000/title');
+			x.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+			
+			x.onload = function() {
+        		alert(x.responseText);
+    		};
+
+    		x.send(JSON.stringify(data));
+
+	});
+
 	// Add a listener to the 'Send' button
 	sendButton.addEventListener('click', function(ce) {
 
@@ -121,6 +143,9 @@ document.addEventListener('DOMContentLoaded', function(dcle) {
     		x.send(JSON.stringify(data));
 
 	});
+
+
+
 
 });
 

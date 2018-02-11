@@ -43,10 +43,22 @@ def db_create():
         conn.close()       
 
 
+@app.route('/title', methods=['POST'])
+def get_title():
+    # Get JSON data
+    data = request.get_json()
+    title = data['title'].encode('utf8') 
+
+    with open("titles.txt", "a") as f:
+        f.write(title)
+        f.write('\n')
+
+    return 'OK Title'
+
 
 @app.route('/post', methods=['POST'])
-def show_post():
-    # show the post with the given id, the id is an integer
+def get_post():
+    # Get JSON data
     data = request.get_json()
 
     # remove "data:image/png;base64,"
@@ -54,6 +66,12 @@ def show_post():
 
     #with open("imageToSave.png", "wb") as f:
     #    f.write(img_data.decode('base64'))
+
+    title = data['title'].encode('utf8') 
+
+    with open("titles.txt", "a") as f:
+        f.write(title)
+        f.write('\n')    
 
     conn = sqlite3.connect("output.db")
     cursor = conn.cursor()
@@ -74,5 +92,5 @@ def show_post():
         conn.close() 
 
 
-    return 'OK'
+    return 'OK DB'
 
