@@ -31,4 +31,3 @@ mv cnus.txt input.txt
 Then start train from the top level directory using `python train.py --data_dir=./data/sherlock/`
 
 A quick tip to concatenate many small disparate `.txt` files into one large training file: `ls *.txt | xargs -L 1 cat >> input.txt`
-

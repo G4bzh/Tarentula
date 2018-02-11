@@ -49,7 +49,7 @@ def get_title():
     data = request.get_json()
     title = data['title'].encode('utf8') 
 
-    with open("titles.txt", "a") as f:
+    with open("input.txt", "a") as f:
         f.write(title)
         f.write('\n')
 
@@ -69,7 +69,7 @@ def get_post():
 
     title = data['title'].encode('utf8') 
 
-    with open("titles.txt", "a") as f:
+    with open("input.txt", "a") as f:
         f.write(title)
         f.write('\n')    
 
