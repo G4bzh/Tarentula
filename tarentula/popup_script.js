@@ -9,7 +9,7 @@ var canvThumbID = "thumb";
 var buttonShotID = "shot";
 var buttonSendID = "send";
 var buttonSendTID = "sendT";
-
+var section;
 		
 var img = new Image();
 var X = 0;
@@ -27,7 +27,7 @@ function printInfo(info)
 {
 	document.getElementById(textURLID).value = info.url;
 	document.getElementById(textTitleID).value = info.title;
-   
+    section = info.section;
 }
 
 
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function(dcle) {
 			
 			// Need  <all_urls> permission here
 			var x = new XMLHttpRequest();
-			x.open('POST', 'http://localhost:5000/title');
+			x.open('POST', 'http://localhost:5000/title/' + section);
 			x.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 			
 			x.onload = function() {
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function(dcle) {
 			
 			// Need  <all_urls> permission here
 			var x = new XMLHttpRequest();
-			x.open('POST', 'http://localhost:5000/post');
+			x.open('POST', 'http://localhost:5000/post/' + section);
 			x.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 			
 			x.onload = function() {
