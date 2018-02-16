@@ -33,15 +33,17 @@ try:
         	""")
         metadata = cursor.fetchone()
 
-
-        subject = metadata[2] + '¤' + metadata[1]
-
         tplVars = {
             'parts': range(1,11),
             'lines' : range(5,8),
             'title' : metadata[2],
-            'keywords' : ('cats', 'kitten', 'cat', 'pussy', 'kitty', 'puss'),
+            'keywords' : ('cat', 'cats', 'kitten', 'pussy', 'kitty', 'puss')
         }
+
+        template = tplEnv.get_template( "meta.jinja" )
+        meta = template.render(tplVars)
+
+        subject = metadata[2] + '¤' + metadata[1] + '¤' + tplVars['keywords'][0] + '¤' + meta 
 
         template = tplEnv.get_template( "body.jinja" )
         body = template.render(tplVars)

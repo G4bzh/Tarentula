@@ -6,7 +6,7 @@
 <h2>Part {{ p }}</h2>
 <br/>
 {% for l in range( lines | random ) %}
-{{ g.transitions | random() }} {{ g.verbs | random() }} {{ g.pronouns | random() }} {{ g.adjectives | random() }} {{ keywords | random() }}   
+{{ g.transitions | random() }} {{ g.verbs | random() }} {{ g.pronouns | random() }} {{ g.adjectives | random() }} {{ keywords | random() }} <br/>
 {%- endfor %}
 <br/>
 {% endfor %}
