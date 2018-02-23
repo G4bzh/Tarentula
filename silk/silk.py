@@ -27,11 +27,11 @@ def main(argv):
 
     config = ConfigParser.ConfigParser()
     config.read('./mysettings.ini')
-    server = config.get('MAIL','server')
-    user   = config.get('MAIL','username')
-    password = config.get('MAIL','password')
-    recipient = config.get('MAIL','recipient')
-    debug = config.get('MAIL','debug')
+    server = config.get(section,'server')
+    user   = config.get(section,'username')
+    password = config.get(section,'password')
+    recipient = config.get(section,'recipient')
+    debug = config.get(section,'debug')
     dbpath = config.get(section,'dbpath')
     kw = config.get(section,'keywords').split(",")
 

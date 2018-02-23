@@ -15,9 +15,6 @@ config = ConfigParser.ConfigParser()
 config.read('./mysettings.ini')
 # Get sections in lower case
 sections = [i.lower() for i in config.sections()]
-# remove 'MAIL' section
-sections.pop(0) 
-
 
 @app.before_first_request
 def db_create():
