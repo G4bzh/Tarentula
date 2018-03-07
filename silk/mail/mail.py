@@ -25,7 +25,7 @@ def sendpost(to, user, subject, body, url, server, password, debug):
 	part.add_header('Content-Disposition', 'attachment; filename="post.png"')
 	msg.attach(part)
 
-	srv = smtplib.SMTP(server)
+	srv = smtplib.SMTP(server,587)
 
 	try:
 		srv.set_debuglevel(debug)
@@ -41,7 +41,8 @@ def sendpost(to, user, subject, body, url, server, password, debug):
 		srv.login(user, password)
 		srv.sendmail(user, to, msg.as_string())	
 
-	except smtplib.SMTPException:
+	except smtplib.SMTPException as e:
+		print(str(e)) 
 		raise ValueError
 
 	finally:

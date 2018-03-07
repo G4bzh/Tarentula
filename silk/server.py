@@ -1,4 +1,4 @@
-# FLASK_APP=server.py flask run --host 0.0.0.0
+# FLASK_APP=server.py SECTION=CATS flask run --host 0.0.0.0
 
 from flask import Flask
 from flask import request
@@ -7,20 +7,28 @@ import sqlite3
 from contextlib import closing
 import hashlib
 import ConfigParser
-
+import os, sys
 
 app = Flask(__name__)
+
+# Section via env variable
+section = os.environ["SECTION"] if "SECTION" in os.environ else 'CATS'
+
 
 config = ConfigParser.ConfigParser()
 config.read('./mysettings.ini')
 # Get sections in lower case
 sections = [i.lower() for i in config.sections()]
+# Little check
+if section.lower() not in sections:
+    print("%s not in config file" % section)
+    sys.exit(-1)
 
 @app.before_first_request
 def db_create():
     try:
 
-        conn = sqlite3.connect("output.db")
+        conn = sqlite3.connect(config.get(section,'dbpath'))
         cursor = conn.cursor()
         
         cursor.execute("""

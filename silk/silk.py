@@ -61,6 +61,7 @@ def main(argv):
             body = template.render(tplVars)
 
             sendpost(recipient, user, subject, body, metadata[3], server, password, debug)
+            #print recipient, user, subject, body, metadata[3], server, password, debug
 
             cursor.execute("""
             	UPDATE content SET posted = 1 WHERE id = ?

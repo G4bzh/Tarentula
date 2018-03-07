@@ -14,7 +14,7 @@ _yoast_wpseo_metadesc
 
 function my_postie_post_function($post) {
 
-    /* Post title is et to TITLE¤VIDEO_URL */
+    /* Post title is set to TITLE¤VIDEO_URL */
     $ar_title = explode("¤",$post['post_title']);
 
     add_post_meta($post['ID'], 'dp_video_url', $ar_title[1]);

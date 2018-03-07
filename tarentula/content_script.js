@@ -19,7 +19,7 @@ chrome.runtime.onMessage.addListener(function (msg, sender, response) {
 
 	    var additionalInfo = {
 			"url" : location.href,
-			"title": document.getElementsByTagName('h1')[0].innerHTML,
+			"title": document.getElementsByTagName('h1')[0].innerText,
 			"section" : "cats"
 		};
 
@@ -28,3 +28,6 @@ chrome.runtime.onMessage.addListener(function (msg, sender, response) {
 
 
 });
+
+
+
