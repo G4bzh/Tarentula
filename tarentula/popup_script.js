@@ -9,6 +9,7 @@ var canvThumbID = "thumb";
 var buttonShotID = "shot";
 var buttonSendID = "send";
 var buttonSendTID = "sendT";
+var selectSectionID = "section";
 var section;
 		
 var img = new Image();
@@ -27,7 +28,7 @@ function printInfo(info)
 {
 	document.getElementById(textURLID).value = info.url;
 	document.getElementById(textTitleID).value = info.title;
-    section = info.section;
+    section = document.getElementById(selectSectionID).value;
 }
 
 
