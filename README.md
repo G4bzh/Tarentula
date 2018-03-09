@@ -22,7 +22,7 @@ pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1
 ### Server
 
 ```
-FLASK_APP=server.py flask run --host 0.0.0.0
+FLASK_APP=server.py SECTION=cats flask run --host 0.0.0.0
 ```
 
 ### Silk
