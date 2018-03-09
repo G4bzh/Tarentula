@@ -22,13 +22,13 @@ pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1
 ### Server
 
 ```
-FLASK_APP=server.py SECTION=cats flask run --host 0.0.0.0
+FLASK_APP=server.py SECTION=CATS flask run --host 0.0.0.0
 ```
 
 ### Silk
 
 ```
-python silk.py
+python silk.py -s cats
 ```
 
 ### Terraria
@@ -39,5 +39,4 @@ Learning with few data in tarentual input.txt (beware of "by heart" learning)
 ```bash
 python train.py --data_dir ../tarentula/ --batch_size 10 --seq_length 10 --num_epochs 100 --learning_rate 0.02
 python sample.py -n 50
-```
 ```
