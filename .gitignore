@@ -103,4 +103,5 @@ ENV/
 # Custom
 mysettings.ini
 *.db
-post.jpg
+*.jpg
+*.png
