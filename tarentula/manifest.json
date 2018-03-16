@@ -33,8 +33,11 @@
     {
       "matches" : ["*://www.redtube.com/*"],
       "js" : ["redtube.js"]
+    },
+    {
+      "matches" : ["*://fr.xhamster.com/videos*"],
+      "js" : ["xhamster.js"]
     }
-
   ],
 
   "permissions": [
