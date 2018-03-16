@@ -37,7 +37,11 @@
     {
       "matches" : ["*://*.xhamster.com/videos*"],
       "js" : ["xhamster.js"]
-    }
+    },
+    {
+      "matches" : ["*://www.xnxx.com/video*"],
+      "js" : ["xnxx.js"]
+    }    
   ],
 
   "permissions": [
