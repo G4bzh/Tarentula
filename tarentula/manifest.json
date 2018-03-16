@@ -35,7 +35,7 @@
       "js" : ["redtube.js"]
     },
     {
-      "matches" : ["*://fr.xhamster.com/videos*"],
+      "matches" : ["*://*.xhamster.com/videos*"],
       "js" : ["xhamster.js"]
     }
   ],
