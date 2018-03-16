@@ -7,54 +7,47 @@ import sqlite3
 from contextlib import closing
 import hashlib
 import ConfigParser
-import os, sys
+
 
 app = Flask(__name__)
-
-# Section via env variable
-section = os.environ["SECTION"] if "SECTION" in os.environ else 'CATS'
-
 
 config = ConfigParser.ConfigParser()
 config.read('./mysettings.ini')
 # Get sections in lower case
 sections = [i.lower() for i in config.sections()]
-# Little check
-if section.lower() not in sections:
-    print("%s not in config file" % section)
-    sys.exit(-1)
+
 
 @app.before_first_request
 def db_create():
-    try:
+    for section in sections: 
+        try:
+            conn = sqlite3.connect(config.get(section.upper(),'dbpath'))
+            cursor = conn.cursor()
+            
+            cursor.execute("""
+            CREATE TABLE IF NOT EXISTS content(
+            id TEXT PRIMARY KEY UNIQUE,
+            url TEXT,
+            title TEXT,
+            thumb BLOB,
+            posted INTEGER,
+            code INTEGER
+            )
+            """)
+            conn.commit()
 
-        conn = sqlite3.connect(config.get(section,'dbpath'))
-        cursor = conn.cursor()
-        
-        cursor.execute("""
-        CREATE TABLE IF NOT EXISTS content(
-        id TEXT PRIMARY KEY UNIQUE,
-        url TEXT,
-        title TEXT,
-        thumb BLOB,
-        posted INTEGER,
-        code INTEGER
-        )
-        """)
-        conn.commit()
+            cursor.execute("""
+            CREATE INDEX IF NOT EXISTS idx_posted
+            ON content(posted)
+            """)
+            conn.commit()
+            cursor.close()
+            conn.close()
 
-        cursor.execute("""
-        CREATE INDEX IF NOT EXISTS idx_posted
-        ON content(posted)
-        """)
-        conn.commit()
+        except sqlite3.Error,e:
+            raise Exception( "Error creating DB: %s" % e)
+            
 
-    except sqlite3.Error,e:
-        raise Exception( "Error creating DB: %s" % e)
-
-    finally:
-        cursor.close()
-        conn.close()       
 
 
 @app.route('/title/<section>', methods=['POST'])

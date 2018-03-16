@@ -29,7 +29,6 @@ function printInfo(info)
 {
 	document.getElementById(textURLID).value = info.url;
 	document.getElementById(textTitleID).value = info.title;
-    section = document.getElementById(selectSectionID).value;
     code = info.code;
 }
 
@@ -111,7 +110,8 @@ document.addEventListener('DOMContentLoaded', function(dcle) {
 			var data = {
 				"title": document.getElementById(textTitleID).value
 			};
-			
+			section = document.getElementById(selectSectionID).value;
+
 			// Need  <all_urls> permission here
 			var x = new XMLHttpRequest();
 			x.open('POST', 'http://localhost:5000/title/' + section);
@@ -134,6 +134,7 @@ document.addEventListener('DOMContentLoaded', function(dcle) {
 				"img" : document.getElementById(canvThumbID).toDataURL(),
 				"code" : code
 			};
+			section = document.getElementById(selectSectionID).value;
 			
 			// Need  <all_urls> permission here
 			var x = new XMLHttpRequest();

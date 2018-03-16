@@ -7,6 +7,8 @@
   "description" : "myTube Extension",
   "version": "0.1",
   
+  "incognito": "split",
+  
   "page_action": {
     "default_popup": "popup.html",
     "default_icon": "icon.png",
@@ -23,6 +25,10 @@
     {
       "matches" : ["*://www.youtube.com/watch*"],
       "js" : ["youtube.js"]
+    },
+        {
+      "matches" : ["*://www.xvideos.com/video*"],
+      "js" : ["xvideos.js"]
     }
   ],
 
