@@ -41,6 +41,10 @@
     {
       "matches" : ["*://www.xnxx.com/video*"],
       "js" : ["xnxx.js"]
+    },
+    {
+      "matches" : ["*://www.youporn.com/watch*"],
+      "js" : ["youporn.js"]
     }    
   ],
 
