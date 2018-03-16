@@ -10,10 +10,9 @@ var buttonShotID = "shot";
 var buttonSendID = "send";
 var buttonSendTID = "sendT";
 var selectSectionID = "section";
-var videourlID = "videourl";
-var videocodeID = "videocode";
 var section;
-		
+var code;
+
 var img = new Image();
 var X = 0;
 var Y = 0;
@@ -31,6 +30,7 @@ function printInfo(info)
 	document.getElementById(textURLID).value = info.url;
 	document.getElementById(textTitleID).value = info.title;
     section = document.getElementById(selectSectionID).value;
+    code = info.code;
 }
 
 
@@ -131,7 +131,8 @@ document.addEventListener('DOMContentLoaded', function(dcle) {
 			var data = {
 				"url" : document.getElementById(textURLID).value,
 				"title": document.getElementById(textTitleID).value,
-				"img" : document.getElementById(canvThumbID).toDataURL()
+				"img" : document.getElementById(canvThumbID).toDataURL(),
+				"code" : code
 			};
 			
 			// Need  <all_urls> permission here

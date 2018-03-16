@@ -37,7 +37,8 @@ def db_create():
         url TEXT,
         title TEXT,
         thumb BLOB,
-        posted INTEGER
+        posted INTEGER,
+        code INTEGER
         )
         """)
         conn.commit()
@@ -87,6 +88,7 @@ def get_post(section):
         #    f.write(img_data.decode('base64'))
 
         title = data['title'].encode('utf8') 
+        code = data['code']
 
         txtfile = config.get(section.upper(),'titlepath')
         dbpath = config.get(section.upper(),'dbpath')
@@ -101,8 +103,8 @@ def get_post(section):
         try:
             
             cursor.execute("""
-            INSERT INTO content(id, url, title, thumb, posted) VALUES(?, ?, ?, ?, ?)
-            """, (hashlib.sha1(data['url']).hexdigest(), data['url'], data['title'], img_data, 0))
+            INSERT INTO content(id, url, title, thumb, posted, code) VALUES(?, ?, ?, ?, ?, ?)
+            """, (hashlib.sha1(data['url']).hexdigest(), data['url'], data['title'], img_data, 0, code))
             
         except sqlite3.IntegrityError:
             # Key already exists (id est URL already scrapped), do nothing

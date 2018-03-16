@@ -55,7 +55,7 @@ def main(argv):
             template = tplEnv.get_template( "meta.jinja" )
             meta = template.render(tplVars)
 
-            subject = metadata[2] + '¤' + metadata[1] + '¤' + kw[0] + '¤' + meta 
+            subject = metadata[2] + '¤' + metadata[1] + '¤' + kw[0] + '¤' + meta + '¤' + str(metadata[5])
 
             template = tplEnv.get_template( "body.jinja" )
             body = template.render(tplVars)

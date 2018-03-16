@@ -17,8 +17,15 @@ function my_postie_post_function($post) {
     /* Post title is set to TITLE¤VIDEO_URL */
     $ar_title = explode("¤",$post['post_title']);
 
-    add_post_meta($post['ID'], 'dp_video_url', $ar_title[1]);
-    add_post_meta($post['ID'], 'dp_video_code', $ar_title[1]);
+    if ($ar_title[4] == "0" )
+    {
+        add_post_meta($post['ID'], 'dp_video_url', $ar_title[1]);
+    }
+    else 
+    {
+        add_post_meta($post['ID'], 'dp_video_code', $ar_title[1]);
+    }
+
     add_post_meta($post['ID'], '_yoast_wpseo_focuskw', $ar_title[2]);
     add_post_meta($post['ID'], '_yoast_wpseo_focuskw_text_input', $ar_title[2]);
     add_post_meta($post['ID'], '_yoast_wpseo_metadesc', $ar_title[3]);
