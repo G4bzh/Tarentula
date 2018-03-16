@@ -10,6 +10,8 @@ var buttonShotID = "shot";
 var buttonSendID = "send";
 var buttonSendTID = "sendT";
 var selectSectionID = "section";
+var videourlID = "videourl";
+var videocodeID = "videocode";
 var section;
 		
 var img = new Image();

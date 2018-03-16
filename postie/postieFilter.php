@@ -18,6 +18,7 @@ function my_postie_post_function($post) {
     $ar_title = explode("¤",$post['post_title']);
 
     add_post_meta($post['ID'], 'dp_video_url', $ar_title[1]);
+    add_post_meta($post['ID'], 'dp_video_code', $ar_title[1]);
     add_post_meta($post['ID'], '_yoast_wpseo_focuskw', $ar_title[2]);
     add_post_meta($post['ID'], '_yoast_wpseo_focuskw_text_input', $ar_title[2]);
     add_post_meta($post['ID'], '_yoast_wpseo_metadesc', $ar_title[3]);
