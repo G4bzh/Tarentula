@@ -18,8 +18,8 @@ chrome.runtime.onMessage.addListener(function (msg, sender, response) {
 	     // through the specified callback */
 
 	    var additionalInfo = {
-			"url" : location.href,
-			"title": document.getElementsByTagName('h1')[0].innerText,
+			"url" : document.getElementById('js_video_share_embed').value,
+			"title": document.getElementsByClassName('video_title_text')[0].innerText,
 			"code" : 1
 		};
 

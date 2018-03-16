@@ -26,10 +26,15 @@
       "matches" : ["*://www.youtube.com/watch*"],
       "js" : ["youtube.js"]
     },
-        {
+    {
       "matches" : ["*://www.xvideos.com/video*"],
       "js" : ["xvideos.js"]
+    },
+    {
+      "matches" : ["*://www.redtube.com/*"],
+      "js" : ["redtube.js"]
     }
+
   ],
 
   "permissions": [
