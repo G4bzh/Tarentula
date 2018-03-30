@@ -43,6 +43,10 @@
       "js" : ["xnxx.js"]
     },
     {
+      "matches" : ["*://www.eporner.eu/*"],
+      "js" : ["eporner.js"]
+    },
+    {
       "matches" : ["*://www.youporn.com/watch*"],
       "js" : ["youporn.js"]
     }    
