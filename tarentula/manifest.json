@@ -47,6 +47,10 @@
       "js" : ["eporner.js"]
     },
     {
+      "matches" : ["*://*.porn.com/videos*"],
+      "js" : ["porn.js"]
+    },
+    {
       "matches" : ["*://www.youporn.com/watch*"],
       "js" : ["youporn.js"]
     }    
