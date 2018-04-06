@@ -1,0 +1,12 @@
+{% import 'grammar.jinja' as g with context %}
+<h1>{{title}}</h1>
+<br/>
+<br/>
+{% for p in parts %}
+<h2>{{ p }}- {{ keywords | random() }} Videos HD High Quality</h2>
+<br/>
+{% for l in range( lines | random ) %}
+{{ g.transitions | random() }} {{ g.verbs | random() }} {{ g.pronouns | random() }} {{ g.adjectives | random() }} {{ keywords | random() }} <br/>
+{%- endfor %}
+<br/>
+{% endfor %}

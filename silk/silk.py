@@ -1,5 +1,5 @@
-	
-# -*- coding: utf-8 -*- 
+
+# -*- coding: utf-8 -*-
 import jinja2
 from mail.mail import sendpost
 from contextlib import closing
@@ -12,7 +12,7 @@ import sys, getopt
 
 def main(argv):
 
-    reload(sys)  
+    reload(sys)
     sys.setdefaultencoding('utf8')
     section = 'CATS'
 
@@ -21,7 +21,7 @@ def main(argv):
         section = arg.upper()
 
 
-    tplLoader = jinja2.FileSystemLoader(searchpath='./templates')
+    tplLoader = jinja2.FileSystemLoader(searchpath='./templates/'+section.lower())
     tplEnv = jinja2.Environment(loader=tplLoader)
 
 
@@ -67,7 +67,7 @@ def main(argv):
             	UPDATE content SET posted = 1 WHERE id = ?
             	""",(metadata[0],))
 
-         
+
             conn.commit()
             cursor.close()
 
